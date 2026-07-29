@@ -1,6 +1,6 @@
-# Agrovision Weather Updates
+# Weather Updates
 
-Public weather outlook summaries for Agrovision farm regions.
+Public weather outlook summaries for farm regions.
 
 ## Latest
 
