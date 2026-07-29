@@ -1,12 +1,10 @@
 site_name: Weather Updates
 site_description: Public weather outlook summaries for farm regions.
 site_url: https://kamingfung.github.io/weather-updates/
-
 nav:
-  - Home: index.md
-  - Archive: []
-
+- Home: index.md
+- Archive:
+  - '2026-07-29': archive/2026-07-29/index.html
 theme:
   name: material
-
 use_directory_urls: true
