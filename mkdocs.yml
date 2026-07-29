@@ -1,0 +1,12 @@
+site_name: Agrovision Weather Updates
+site_description: Public weather outlook summaries for Agrovision farm regions.
+site_url: https://kamingfung.github.io/weather-updates/
+
+nav:
+  - Home: index.md
+  - Archive: []
+
+theme:
+  name: material
+
+use_directory_urls: true
