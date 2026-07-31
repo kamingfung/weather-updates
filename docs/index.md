@@ -11,6 +11,7 @@ Public weather outlook summaries for farm regions.
 - [Eastern Jalisco (Los Altos), Mexico](archive/mexico/eastern-jalisco/2026-07-30/index.html)
 - [Souss-Massa, Morocco](archive/morocco/souss-massa/2026-07-30/index.html)
 
+
 ## Archive
 
 ### Peru
