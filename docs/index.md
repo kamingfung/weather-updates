@@ -4,12 +4,12 @@ Public weather outlook summaries for farm regions.
 
 ## Latest
 
-- [Olmos, Lambayeque, Peru](archive/peru/lambayeque/2026-07-30/index.html)
-- [Southern Jalisco, Mexico](archive/mexico/southern-jalisco/2026-07-30/index.html)
-- [Central Jalisco, Mexico](archive/mexico/central-jalisco/2026-07-30/index.html)
-- [Northern Jalisco, Mexico](archive/mexico/northern-jalisco/2026-07-30/index.html)
-- [Eastern Jalisco (Los Altos), Mexico](archive/mexico/eastern-jalisco/2026-07-30/index.html)
-- [Souss-Massa, Morocco](archive/morocco/souss-massa/2026-07-30/index.html)
+- [Olmos, Lambayeque, Peru](archive/peru/lambayeque/2026-08-10/index.html)
+- [Southern Jalisco, Mexico](archive/mexico/southern-jalisco/2026-08-10/index.html)
+- [Central Jalisco, Mexico](archive/mexico/central-jalisco/2026-08-10/index.html)
+- [Northern Jalisco, Mexico](archive/mexico/northern-jalisco/2026-08-10/index.html)
+- [Eastern Jalisco (Los Altos), Mexico](archive/mexico/eastern-jalisco/2026-08-10/index.html)
+- [Souss-Massa, Morocco](archive/morocco/souss-massa/2026-08-10/index.html)
 
 
 ## Archive
