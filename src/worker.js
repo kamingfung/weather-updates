@@ -80,11 +80,19 @@ export default {
       return unauthorizedResponse();
     }
 
-    // Auth passed — fetch the static asset and mark it private so Cloudflare's
-    // edge cache never stores it (which would bypass auth on subsequent requests).
-    const assetResponse = await env.ASSETS.fetch(request);
+    // Auth passed — fetch the asset with cache bypassed, then return it with
+    // headers that prevent Cloudflare's edge from caching the response.
+    // We must bypass the cache on the ASSETS fetch itself (cf.cacheEverything=false)
+    // AND on the outbound response (Cache-Control: private, no-store) because
+    // Cloudflare's asset CDN layer can cache independently of Worker response headers.
+    const assetRequest = new Request(request, {
+      cf: { cacheEverything: false },
+    });
+    const assetResponse = await env.ASSETS.fetch(assetRequest);
     const response = new Response(assetResponse.body, assetResponse);
     response.headers.set("Cache-Control", "private, no-store");
+    response.headers.delete("ETag");
+    response.headers.delete("Last-Modified");
     return response;
   },
 };

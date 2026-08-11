@@ -4,9 +4,10 @@ compatibility_date = "2026-08-10"
 compatibility_flags = ["nodejs_compat"]
 
 [assets]
-directory = "./site"    # MkDocs build output
+directory = "./site"        # MkDocs build output
 binding = "ASSETS"
-run_worker_first = true # Auth gate runs before any asset is served
+run_worker_first = true     # Auth gate runs before any asset is served
+not_found_handling = "none" # Worker handles 404s itself
 
 # Secrets (never stored here — set via wrangler CLI or Cloudflare dashboard):
 #   wrangler secret put BASIC_USER   (default: "agrovision" if unset)
