@@ -1,30 +1,45 @@
 /**
  * Cloudflare Worker — HTTP Basic Auth gate for the weather-updates static site.
  *
- * Every request is challenged with HTTP Basic Auth before the static asset is
- * served. Credentials are checked with a timing-safe comparison to prevent
- * timing-oracle attacks.
+ * Files are stored in Workers KV (SITE_ASSETS binding) and served directly
+ * by this Worker. Every request passes through the auth gate — there is no
+ * CDN layer that can bypass it, unlike the ASSETS binding approach.
  *
- * Configuration (Cloudflare secrets — never committed to the repo):
- *   BASIC_USER   Username (set via: wrangler secret put BASIC_USER)
- *   PASSWORD     Password (set via: wrangler secret put PASSWORD)
+ * Secrets (set via: wrangler secret put <NAME>):
+ *   BASIC_USER   Username shown in browser dialog
+ *   PASSWORD     Password
  *
- * The MkDocs static site is served via the ASSETS binding defined in
- * wrangler.toml. On auth success every request is forwarded to ASSETS.
+ * MIME types are inferred from file extension. HTML files are served with
+ * Cache-Control: private, no-store so browsers do not cache them.
  */
 
 import { Buffer } from "node:buffer";
 
 const encoder = new TextEncoder();
 
-/**
- * Timing-safe string comparison. Avoids leaking secret length through early
- * exit when lengths differ by comparing against self and negating.
- *
- * @param {string} a
- * @param {string} b
- * @returns {boolean}
- */
+const MIME_TYPES = {
+  ".html": "text/html; charset=utf-8",
+  ".css":  "text/css",
+  ".js":   "application/javascript",
+  ".json": "application/json",
+  ".png":  "image/png",
+  ".jpg":  "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".gif":  "image/gif",
+  ".svg":  "image/svg+xml",
+  ".ico":  "image/x-icon",
+  ".woff": "font/woff",
+  ".woff2":"font/woff2",
+  ".gz":   "application/gzip",
+  ".xml":  "application/xml",
+  ".map":  "application/json",
+};
+
+function mimeType(path) {
+  const ext = path.match(/\.[^.]+$/)?.[0]?.toLowerCase() ?? "";
+  return MIME_TYPES[ext] ?? "application/octet-stream";
+}
+
 function timingSafeEqual(a, b) {
   const aBytes = encoder.encode(a);
   const bBytes = encoder.encode(b);
@@ -34,7 +49,6 @@ function timingSafeEqual(a, b) {
   return crypto.subtle.timingSafeEqual(aBytes, bBytes);
 }
 
-/** Response sent when credentials are missing or wrong. */
 function unauthorizedResponse() {
   return new Response("Unauthorized", {
     status: 401,
@@ -46,17 +60,10 @@ function unauthorizedResponse() {
 }
 
 export default {
-  /**
-   * @param {Request} request
-   * @param {{ BASIC_USER: string, PASSWORD: string, ASSETS: { fetch: Function } }} env
-   * @returns {Promise<Response>}
-   */
   async fetch(request, env) {
+    // ── Auth gate ────────────────────────────────────────────────────────
     const authorization = request.headers.get("Authorization");
-
-    if (!authorization) {
-      return unauthorizedResponse();
-    }
+    if (!authorization) return unauthorizedResponse();
 
     const [scheme, encoded] = authorization.split(" ");
     if (scheme !== "Basic" || !encoded) {
@@ -64,35 +71,50 @@ export default {
     }
 
     const credentials = Buffer.from(encoded, "base64").toString("utf-8");
-    const separatorIndex = credentials.indexOf(":");
-    const user = credentials.substring(0, separatorIndex);
-    const pass = credentials.substring(separatorIndex + 1);
+    const sep  = credentials.indexOf(":");
+    const user = credentials.substring(0, sep);
+    const pass = credentials.substring(sep + 1);
 
     const expectedUser = env.BASIC_USER ?? "agrovision";
     const expectedPass = env.PASSWORD;
 
     if (!expectedPass) {
-      // Password secret not configured — fail closed, never open.
       return new Response("Service misconfigured.", { status: 503 });
     }
-
     if (!timingSafeEqual(expectedUser, user) || !timingSafeEqual(expectedPass, pass)) {
       return unauthorizedResponse();
     }
 
-    // Auth passed — fetch the asset with cache bypassed, then return it with
-    // headers that prevent Cloudflare's edge from caching the response.
-    // We must bypass the cache on the ASSETS fetch itself (cf.cacheEverything=false)
-    // AND on the outbound response (Cache-Control: private, no-store) because
-    // Cloudflare's asset CDN layer can cache independently of Worker response headers.
-    const assetRequest = new Request(request, {
-      cf: { cacheEverything: false },
+    // ── Serve from KV ────────────────────────────────────────────────────
+    const url      = new URL(request.url);
+    let   pathname = decodeURIComponent(url.pathname);
+
+    // Normalise directory paths to index.html
+    if (pathname.endsWith("/")) pathname += "index.html";
+    else if (!pathname.includes(".")) pathname += "/index.html";
+
+    // KV keys are stored without leading slash
+    const key = pathname.replace(/^\//, "");
+
+    const value = await env.SITE_ASSETS.get(key, { type: "stream" });
+
+    if (value === null) {
+      // Diagnostic: return what key was attempted so we can debug KV misses.
+      const notFound = await env.SITE_ASSETS.get("404.html", { type: "stream" });
+      return new Response(notFound ?? "Not Found", {
+        status: 404,
+        headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" },
+      });
+    }
+
+    const isHtml = pathname.endsWith(".html");
+    return new Response(value, {
+      status: 200,
+      headers: {
+        "Content-Type":  mimeType(pathname),
+        // HTML: never cache (contains nav state). Assets: short cache ok.
+        "Cache-Control": isHtml ? "private, no-store" : "private, max-age=300",
+      },
     });
-    const assetResponse = await env.ASSETS.fetch(assetRequest);
-    const response = new Response(assetResponse.body, assetResponse);
-    response.headers.set("Cache-Control", "private, no-store");
-    response.headers.delete("ETag");
-    response.headers.delete("Last-Modified");
-    return response;
   },
 };
