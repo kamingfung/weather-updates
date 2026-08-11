@@ -80,7 +80,11 @@ export default {
       return unauthorizedResponse();
     }
 
-    // Auth passed — serve the static asset.
-    return env.ASSETS.fetch(request);
+    // Auth passed — fetch the static asset and mark it private so Cloudflare's
+    // edge cache never stores it (which would bypass auth on subsequent requests).
+    const assetResponse = await env.ASSETS.fetch(request);
+    const response = new Response(assetResponse.body, assetResponse);
+    response.headers.set("Cache-Control", "private, no-store");
+    return response;
   },
 };
