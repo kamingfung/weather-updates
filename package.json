@@ -1,0 +1,11 @@
+{
+  "name": "weather-updates",
+  "private": true,
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "workerd@1.20260804.1": true
+  }
+}
