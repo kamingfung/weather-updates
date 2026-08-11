@@ -1,34 +1,8 @@
 site_name: Weather Updates
 site_description: Public weather outlook summaries for farm regions.
-site_url: https://kamingfung.github.io/weather-updates/
-nav:
-- Home: index.md
-- Peru:
-  - Olmos, Lambayeque:
-    - '2026-08-10': archive/peru/lambayeque/2026-08-10/index.html
-    - '2026-07-30': archive/peru/lambayeque/2026-07-30/index.html
-    - '2026-07-29': archive/peru/lambayeque/2026-07-29/index.html
-    - '2026-07-20': archive/peru/lambayeque/2026-07-20/index.html
-    - '2026-06-26': archive/peru/lambayeque/2026-06-26/index.html
-    - '2026-06-16': archive/peru/lambayeque/2026-06-16/index.html
-    - '2026-06-02': archive/peru/lambayeque/2026-06-02/index.html
-- Mexico:
-  - Southern Jalisco:
-    - '2026-08-10': archive/mexico/southern-jalisco/2026-08-10/index.html
-    - '2026-07-30': archive/mexico/southern-jalisco/2026-07-30/index.html
-  - Central Jalisco:
-    - '2026-08-10': archive/mexico/central-jalisco/2026-08-10/index.html
-    - '2026-07-30': archive/mexico/central-jalisco/2026-07-30/index.html
-  - Northern Jalisco:
-    - '2026-08-10': archive/mexico/northern-jalisco/2026-08-10/index.html
-    - '2026-07-30': archive/mexico/northern-jalisco/2026-07-30/index.html
-  - Eastern Jalisco (Los Altos):
-    - '2026-08-10': archive/mexico/eastern-jalisco/2026-08-10/index.html
-    - '2026-07-30': archive/mexico/eastern-jalisco/2026-07-30/index.html
-- Morocco:
-  - Souss-Massa:
-    - '2026-08-10': archive/morocco/souss-massa/2026-08-10/index.html
-    - '2026-07-30': archive/morocco/souss-massa/2026-07-30/index.html
+site_url: https://weather-updates.kamingfung.workers.dev/
 theme:
   name: material
 use_directory_urls: true
+# Nav is omitted — the custom index.html provides its own sidebar and iframe layout.
+# MkDocs will still copy all files under docs/ (including archive/**) to site/.
