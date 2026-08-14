@@ -7,36 +7,50 @@ use_directory_urls: true
 nav:
 - Peru:
   - Olmos, Lambayeque:
+    - '2026-08-14': archive/peru/lambayeque/2026-08-14/index.html
     - '2026-08-11': archive/peru/lambayeque/2026-08-11/index.html
 - Mexico:
   - Southern Jalisco:
+    - '2026-08-14': archive/mexico/southern-jalisco/2026-08-14/index.html
     - '2026-08-11': archive/mexico/southern-jalisco/2026-08-11/index.html
   - Central Jalisco:
+    - '2026-08-14': archive/mexico/central-jalisco/2026-08-14/index.html
     - '2026-08-11': archive/mexico/central-jalisco/2026-08-11/index.html
   - Northern Jalisco:
+    - '2026-08-14': archive/mexico/northern-jalisco/2026-08-14/index.html
     - '2026-08-11': archive/mexico/northern-jalisco/2026-08-11/index.html
   - Eastern Jalisco (Los Altos):
+    - '2026-08-14': archive/mexico/eastern-jalisco/2026-08-14/index.html
     - '2026-08-11': archive/mexico/eastern-jalisco/2026-08-11/index.html
   - Baja California:
+    - '2026-08-14': archive/mexico/baja-california/2026-08-14/index.html
     - '2026-08-11': archive/mexico/baja-california/2026-08-11/index.html
 - Morocco:
   - Souss-Massa:
+    - '2026-08-14': archive/morocco/souss-massa/2026-08-14/index.html
     - '2026-08-11': archive/morocco/souss-massa/2026-08-11/index.html
 - Chile:
   - "Maule \u2014 Maitenes":
+    - '2026-08-14': archive/chile/maule-maitenes/2026-08-14/index.html
     - '2026-08-11': archive/chile/maule-maitenes/2026-08-11/index.html
   - "Maule \u2014 San Sebastian":
+    - '2026-08-14': archive/chile/maule-san-sebastian/2026-08-14/index.html
     - '2026-08-11': archive/chile/maule-san-sebastian/2026-08-11/index.html
   - "Biob\xEDo \u2014 Villa Estela":
+    - '2026-08-14': archive/chile/biobio-villa-estela/2026-08-14/index.html
     - '2026-08-11': archive/chile/biobio-villa-estela/2026-08-11/index.html
   - "Maule \u2014 Parcela Planta":
+    - '2026-08-14': archive/chile/maule-parcela-planta/2026-08-14/index.html
     - '2026-08-11': archive/chile/maule-parcela-planta/2026-08-11/index.html
 - India:
   - "Madhya Pradesh \u2014 Amarwara":
+    - '2026-08-14': archive/india/madhya-pradesh-amarwara/2026-08-14/index.html
     - '2026-08-11': archive/india/madhya-pradesh-amarwara/2026-08-11/index.html
   - "Madhya Pradesh \u2014 Amarwara 2":
+    - '2026-08-14': archive/india/madhya-pradesh-amarwara-2/2026-08-14/index.html
     - '2026-08-11': archive/india/madhya-pradesh-amarwara-2/2026-08-11/index.html
   - "Uttarakhand \u2014 Sitarganj":
+    - '2026-08-14': archive/india/uttarakhand-sitarganj/2026-08-14/index.html
     - '2026-08-11': archive/india/uttarakhand-sitarganj/2026-08-11/index.html
   - "Uttarakhand \u2014 Sitarganj 2":
     - '2026-08-11': archive/india/uttarakhand-sitarganj-2/2026-08-11/index.html
@@ -50,22 +64,30 @@ nav:
   - "Yunnan \u2014 Xundian Phase 2":
     - '2026-08-11': archive/china/yunnan-xundian-2/2026-08-11/index.html
   - "Yunnan \u2014 Yongren Phase 1":
+    - '2026-08-14': archive/china/yunnan-yongren-1/2026-08-14/index.html
     - '2026-08-11': archive/china/yunnan-yongren-1/2026-08-11/index.html
   - "Yunnan \u2014 Anning Phase 1":
     - '2026-08-11': archive/china/yunnan-anning-1/2026-08-11/index.html
   - "Yunnan \u2014 Anning Phase 2":
     - '2026-08-11': archive/china/yunnan-anning-2/2026-08-11/index.html
   - "Yunnan \u2014 Mile-NPS":
+    - '2026-08-14': archive/china/yunnan-mile-nps/2026-08-14/index.html
     - '2026-08-11': archive/china/yunnan-mile-nps/2026-08-11/index.html
   - "Yunnan \u2014 Yimen":
+    - '2026-08-14': archive/china/yunnan-yimen/2026-08-14/index.html
     - '2026-08-11': archive/china/yunnan-yimen/2026-08-11/index.html
   - "Yunnan \u2014 Shilin":
+    - '2026-08-14': archive/china/yunnan-shilin/2026-08-14/index.html
     - '2026-08-11': archive/china/yunnan-shilin/2026-08-11/index.html
   - "Yunnan \u2014 Yiliang Phase 1":
+    - '2026-08-14': archive/china/yunnan-yiliang-1/2026-08-14/index.html
     - '2026-08-11': archive/china/yunnan-yiliang-1/2026-08-11/index.html
   - "Yunnan \u2014 Midu":
+    - '2026-08-14': archive/china/yunnan-midu/2026-08-14/index.html
     - '2026-08-11': archive/china/yunnan-midu/2026-08-11/index.html
   - "Yunnan \u2014 Xundian":
+    - '2026-08-14': archive/china/yunnan-xundian/2026-08-14/index.html
     - '2026-08-11': archive/china/yunnan-xundian/2026-08-11/index.html
   - "Yunnan \u2014 Anning":
+    - '2026-08-14': archive/china/yunnan-anning/2026-08-14/index.html
     - '2026-08-11': archive/china/yunnan-anning/2026-08-11/index.html
