@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Weather Updates</title>
+  <title>Weather Updates — Latest</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -17,16 +17,15 @@
 
     /* ── Left sidebar ─────────────────────────────────────────────────── */
     #sidebar {
-      width: 280px;
-      min-width: 220px;
-      max-width: 360px;
+      width: 260px;
+      min-width: 200px;
+      max-width: 340px;
       background: #4A1B5F;
       color: #f0e8f7;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       flex-shrink: 0;
-      resize: horizontal; /* optional: user can drag to resize */
     }
 
     #sidebar-header {
@@ -47,13 +46,25 @@
       margin-top: 3px;
     }
 
+    #archive-link {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border-radius: 4px;
+      font-size: 11px;
+      text-decoration: none;
+      transition: background 0.1s;
+    }
+    #archive-link:hover { background: rgba(255,255,255,0.25); }
+
     #nav {
       flex: 1;
       overflow-y: auto;
       padding: 10px 0 20px;
     }
 
-    /* scrollbar */
     #nav::-webkit-scrollbar { width: 4px; }
     #nav::-webkit-scrollbar-track { background: transparent; }
     #nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
@@ -67,34 +78,38 @@
       color: rgba(255,255,255,0.45);
     }
 
-    .nav-region {
-      padding: 6px 18px 2px;
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.7);
-    }
-
     .nav-link {
       display: block;
-      padding: 5px 18px 5px 30px;
+      padding: 7px 18px 7px 18px;
       font-size: 12.5px;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.85);
       text-decoration: none;
       border-left: 3px solid transparent;
       transition: background 0.1s, color 0.1s, border-color 0.1s;
       cursor: pointer;
     }
 
+    .nav-link span.region {
+      display: block;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .nav-link span.date {
+      display: block;
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 1px;
+    }
+
     .nav-link:hover {
       background: rgba(255,255,255,0.08);
-      color: #fff;
+      border-left-color: rgba(255,255,255,0.2);
     }
 
     .nav-link.active {
       background: rgba(255,255,255,0.12);
-      color: #fff;
       border-left-color: #B895D4;
-      font-weight: 600;
     }
 
     /* ── Resize handle ────────────────────────────────────────────────── */
@@ -134,7 +149,7 @@
       background: #F5F1E8;
     }
 
-    /* ── Mobile sidebar toggle + backdrop (hidden on desktop) ───────────── */
+    /* ── Mobile sidebar toggle + backdrop ────────────────────────────── */
     #sidebar-toggle {
       display: none;
       position: fixed;
@@ -162,14 +177,11 @@
       z-index: 999;
     }
 
-    /* ── Narrow / portrait screens: sidebar becomes a slide-in drawer ───── */
     @media (max-width: 768px) {
       #sidebar-toggle { display: flex; }
-
       #sidebar {
         position: fixed;
-        top: 0;
-        left: 0;
+        top: 0; left: 0;
         height: 100%;
         width: 85vw;
         max-width: 320px;
@@ -179,9 +191,7 @@
         transition: transform 0.25s ease;
       }
       #sidebar.open { transform: translateX(0); }
-
       #resizer { display: none; }
-
       body.sidebar-open #backdrop { display: block; }
       body.sidebar-open #sidebar-toggle { display: none; }
     }
@@ -189,7 +199,6 @@
 </head>
 <body>
 
-<!-- ── Mobile sidebar toggle + backdrop ──────────────────────────────────── -->
 <button id="sidebar-toggle" aria-label="Toggle navigation">☰</button>
 <div id="backdrop"></div>
 
@@ -197,200 +206,165 @@
 <nav id="sidebar">
   <div id="sidebar-header">
     <h1>Weather Updates</h1>
-    <p>Farm region outlook summaries</p>
+    <p>Latest forecast — all regions</p>
+    <a id="archive-link" href="archive.html">Archive ›</a>
   </div>
   <div id="nav">
 
     <div class="nav-country">Peru</div>
-    <div class="nav-region">Olmos, Lambayeque</div>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-08-11/index.html">2026-08-11</a>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-08-10/index.html">2026-08-10</a>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-07-30/index.html">2026-07-30</a>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-07-29/index.html">2026-07-29</a>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-07-20/index.html">2026-07-20</a>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-06-26/index.html">2026-06-26</a>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-06-16/index.html">2026-06-16</a>
-    <a class="nav-link" href="archive/peru/lambayeque/2026-06-02/index.html">2026-06-02</a>
+    <a class="nav-link" data-href="archive/peru/lambayeque/2026-08-19/index.html">
+      <span class="region">Olmos, Lambayeque</span>
+      <span class="date">2026-08-19</span>
+    </a>
 
-    <div class="nav-country" style="margin-top:12px">Mexico</div>
-    <div class="nav-region">Southern Jalisco</div>
-    <a class="nav-link" href="archive/mexico/southern-jalisco/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/mexico/southern-jalisco/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/mexico/southern-jalisco/2026-08-11/index.html">2026-08-11</a>
-    <a class="nav-link" href="archive/mexico/southern-jalisco/2026-08-10/index.html">2026-08-10</a>
-    <a class="nav-link" href="archive/mexico/southern-jalisco/2026-07-30/index.html">2026-07-30</a>
-    <div class="nav-region">Central Jalisco</div>
-    <a class="nav-link" href="archive/mexico/central-jalisco/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/mexico/central-jalisco/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/mexico/central-jalisco/2026-08-11/index.html">2026-08-11</a>
-    <a class="nav-link" href="archive/mexico/central-jalisco/2026-08-10/index.html">2026-08-10</a>
-    <a class="nav-link" href="archive/mexico/central-jalisco/2026-07-30/index.html">2026-07-30</a>
-    <div class="nav-region">Northern Jalisco</div>
-    <a class="nav-link" href="archive/mexico/northern-jalisco/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/mexico/northern-jalisco/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/mexico/northern-jalisco/2026-08-11/index.html">2026-08-11</a>
-    <a class="nav-link" href="archive/mexico/northern-jalisco/2026-08-10/index.html">2026-08-10</a>
-    <a class="nav-link" href="archive/mexico/northern-jalisco/2026-07-30/index.html">2026-07-30</a>
-    <div class="nav-region">Eastern Jalisco (Los Altos)</div>
-    <a class="nav-link" href="archive/mexico/eastern-jalisco/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/mexico/eastern-jalisco/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/mexico/eastern-jalisco/2026-08-11/index.html">2026-08-11</a>
-    <a class="nav-link" href="archive/mexico/eastern-jalisco/2026-08-10/index.html">2026-08-10</a>
-    <a class="nav-link" href="archive/mexico/eastern-jalisco/2026-07-30/index.html">2026-07-30</a>
-    <div class="nav-region">Baja California</div>
-    <a class="nav-link" href="archive/mexico/baja-california/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/mexico/baja-california/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/mexico/baja-california/2026-08-11/index.html">2026-08-11</a>
+    <div class="nav-country" style="margin-top:10px">Mexico</div>
+    <a class="nav-link" data-href="archive/mexico/southern-jalisco/2026-08-19/index.html">
+      <span class="region">Southern Jalisco</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/mexico/central-jalisco/2026-08-19/index.html">
+      <span class="region">Central Jalisco</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/mexico/northern-jalisco/2026-08-19/index.html">
+      <span class="region">Northern Jalisco</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/mexico/eastern-jalisco/2026-08-19/index.html">
+      <span class="region">Eastern Jalisco (Los Altos)</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/mexico/baja-california/2026-08-19/index.html">
+      <span class="region">Baja California</span>
+      <span class="date">2026-08-19</span>
+    </a>
 
-    <div class="nav-country" style="margin-top:12px">Morocco</div>
-    <div class="nav-region">Souss-Massa</div>
-    <a class="nav-link" href="archive/morocco/souss-massa/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/morocco/souss-massa/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/morocco/souss-massa/2026-08-11/index.html">2026-08-11</a>
-    <a class="nav-link" href="archive/morocco/souss-massa/2026-08-10/index.html">2026-08-10</a>
-    <a class="nav-link" href="archive/morocco/souss-massa/2026-07-30/index.html">2026-07-30</a>
+    <div class="nav-country" style="margin-top:10px">Morocco</div>
+    <a class="nav-link" data-href="archive/morocco/souss-massa/2026-08-19/index.html">
+      <span class="region">Souss-Massa</span>
+      <span class="date">2026-08-19</span>
+    </a>
 
-    <div class="nav-country" style="margin-top:12px">Chile</div>
-    <div class="nav-region">Maule — Maitenes</div>
-    <a class="nav-link" href="archive/chile/maule-maitenes/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/chile/maule-maitenes/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/chile/maule-maitenes/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Maule — San Sebastian</div>
-    <a class="nav-link" href="archive/chile/maule-san-sebastian/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/chile/maule-san-sebastian/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/chile/maule-san-sebastian/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Biobío — Villa Estela</div>
-    <a class="nav-link" href="archive/chile/biobio-villa-estela/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/chile/biobio-villa-estela/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/chile/biobio-villa-estela/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Maule — Parcela Planta</div>
-    <a class="nav-link" href="archive/chile/maule-parcela-planta/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/chile/maule-parcela-planta/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/chile/maule-parcela-planta/2026-08-11/index.html">2026-08-11</a>
+    <div class="nav-country" style="margin-top:10px">Chile</div>
+    <a class="nav-link" data-href="archive/chile/maule-maitenes/2026-08-19/index.html">
+      <span class="region">Maule — Maitenes</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/chile/maule-san-sebastian/2026-08-19/index.html">
+      <span class="region">Maule — San Sebastian</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/chile/biobio-villa-estela/2026-08-19/index.html">
+      <span class="region">Biobío — Villa Estela</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/chile/maule-parcela-planta/2026-08-19/index.html">
+      <span class="region">Maule — Parcela Planta</span>
+      <span class="date">2026-08-19</span>
+    </a>
 
-    <div class="nav-country" style="margin-top:12px">India</div>
-    <div class="nav-region">Madhya Pradesh — Amarwara</div>
-    <a class="nav-link" href="archive/india/madhya-pradesh-amarwara/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/india/madhya-pradesh-amarwara/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/india/madhya-pradesh-amarwara/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Madhya Pradesh — Amarwara 2</div>
-    <a class="nav-link" href="archive/india/madhya-pradesh-amarwara-2/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/india/madhya-pradesh-amarwara-2/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/india/madhya-pradesh-amarwara-2/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Uttarakhand — Sitarganj</div>
-    <a class="nav-link" href="archive/india/uttarakhand-sitarganj/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/india/uttarakhand-sitarganj/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/india/uttarakhand-sitarganj/2026-08-11/index.html">2026-08-11</a>
+    <div class="nav-country" style="margin-top:10px">India</div>
+    <a class="nav-link" data-href="archive/india/madhya-pradesh-amarwara/2026-08-19/index.html">
+      <span class="region">Madhya Pradesh — Amarwara</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/india/madhya-pradesh-amarwara-2/2026-08-19/index.html">
+      <span class="region">Madhya Pradesh — Amarwara 2</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/india/uttarakhand-sitarganj/2026-08-19/index.html">
+      <span class="region">Uttarakhand — Sitarganj</span>
+      <span class="date">2026-08-19</span>
+    </a>
 
-    <div class="nav-country" style="margin-top:12px">China</div>
-    <div class="nav-region">Yunnan — Midu</div>
-    <a class="nav-link" href="archive/china/yunnan-midu/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/china/yunnan-midu/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/china/yunnan-midu/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Yunnan — Xundian</div>
-    <a class="nav-link" href="archive/china/yunnan-xundian/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/china/yunnan-xundian/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/china/yunnan-xundian/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Yunnan — Yongren Phase 1</div>
-    <a class="nav-link" href="archive/china/yunnan-yongren-1/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/china/yunnan-yongren-1/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/china/yunnan-yongren-1/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Yunnan — Anning</div>
-    <a class="nav-link" href="archive/china/yunnan-anning/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/china/yunnan-anning/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/china/yunnan-anning/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Yunnan — Mile-NPS</div>
-    <a class="nav-link" href="archive/china/yunnan-mile-nps/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/china/yunnan-mile-nps/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/china/yunnan-mile-nps/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Yunnan — Yimen</div>
-    <a class="nav-link" href="archive/china/yunnan-yimen/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/china/yunnan-yimen/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/china/yunnan-yimen/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Yunnan — Shilin</div>
-    <a class="nav-link" href="archive/china/yunnan-shilin/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/china/yunnan-shilin/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/china/yunnan-shilin/2026-08-11/index.html">2026-08-11</a>
-    <div class="nav-region">Yunnan — Yiliang Phase 1</div>
-    <a class="nav-link" href="archive/china/yunnan-yiliang-1/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/china/yunnan-yiliang-1/2026-08-14/index.html">2026-08-14</a>
-    <a class="nav-link" href="archive/china/yunnan-yiliang-1/2026-08-11/index.html">2026-08-11</a>
+    <div class="nav-country" style="margin-top:10px">China</div>
+    <a class="nav-link" data-href="archive/china/yunnan-midu/2026-08-19/index.html">
+      <span class="region">Yunnan — Midu</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/china/yunnan-xundian/2026-08-19/index.html">
+      <span class="region">Yunnan — Xundian</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/china/yunnan-yongren-1/2026-08-19/index.html">
+      <span class="region">Yunnan — Yongren Phase 1</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/china/yunnan-anning/2026-08-19/index.html">
+      <span class="region">Yunnan — Anning</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/china/yunnan-mile-nps/2026-08-19/index.html">
+      <span class="region">Yunnan — Mile-NPS</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/china/yunnan-yimen/2026-08-19/index.html">
+      <span class="region">Yunnan — Yimen</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/china/yunnan-shilin/2026-08-19/index.html">
+      <span class="region">Yunnan — Shilin</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/china/yunnan-yiliang-1/2026-08-19/index.html">
+      <span class="region">Yunnan — Yiliang Phase 1</span>
+      <span class="date">2026-08-19</span>
+    </a>
 
-    <div class="nav-country" style="margin-top:12px">Egypt</div>
-    <div class="nav-region">El Hamam</div>
-    <a class="nav-link" href="archive/egypt/el-hamam/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/egypt/el-hamam/2026-08-14/index.html">2026-08-14</a>
-    <div class="nav-region">Future Site</div>
-    <a class="nav-link" href="archive/egypt/future-site/2026-08-19/index.html">2026-08-19</a>
-    <a class="nav-link" href="archive/egypt/future-site/2026-08-14/index.html">2026-08-14</a>
+    <div class="nav-country" style="margin-top:10px">Egypt</div>
+    <a class="nav-link" data-href="archive/egypt/el-hamam/2026-08-19/index.html">
+      <span class="region">El Hamam</span>
+      <span class="date">2026-08-19</span>
+    </a>
+    <a class="nav-link" data-href="archive/egypt/future-site/2026-08-19/index.html">
+      <span class="region">Future Site</span>
+      <span class="date">2026-08-19</span>
+    </a>
 
   </div>
 </nav>
 
-<!-- ── Drag-to-resize handle ────────────────────────────────────────────── -->
 <div id="resizer"></div>
 
-<!-- ── Dashboard pane ──────────────────────────────────────────────────── -->
 <main id="content">
-  <div id="placeholder">← Select a region and date to view the dashboard</div>
+  <div id="placeholder">← Select a region to view the latest forecast</div>
   <iframe id="dashboard-frame" title="Dashboard"></iframe>
 </main>
 
 <script>
-  const frame     = document.getElementById("dashboard-frame");
+  const frame      = document.getElementById("dashboard-frame");
   const placeholder = document.getElementById("placeholder");
-  const sidebar   = document.getElementById("sidebar");
-  const resizer   = document.getElementById("resizer");
-  const toggle    = document.getElementById("sidebar-toggle");
-  const backdrop  = document.getElementById("backdrop");
+  const sidebar    = document.getElementById("sidebar");
+  const resizer    = document.getElementById("resizer");
+  const toggle     = document.getElementById("sidebar-toggle");
+  const backdrop   = document.getElementById("backdrop");
 
-  // ── Mobile sidebar open/close ──────────────────────────────────────────
-  function openSidebar() {
-    sidebar.classList.add("open");
-    document.body.classList.add("sidebar-open");
-  }
-  function closeSidebar() {
-    sidebar.classList.remove("open");
-    document.body.classList.remove("sidebar-open");
-  }
-  toggle.addEventListener("click", () => {
-    sidebar.classList.contains("open") ? closeSidebar() : openSidebar();
-  });
+  function openSidebar()  { sidebar.classList.add("open"); document.body.classList.add("sidebar-open"); }
+  function closeSidebar() { sidebar.classList.remove("open"); document.body.classList.remove("sidebar-open"); }
+  toggle.addEventListener("click", () => sidebar.classList.contains("open") ? closeSidebar() : openSidebar());
   backdrop.addEventListener("click", closeSidebar);
 
-  // ── Load dashboard into iframe on link click ──────────────────────────
-  document.getElementById("nav").addEventListener("click", (e) => {
-    const link = e.target.closest(".nav-link");
-    if (!link) return;
-    e.preventDefault();
-
-    // Update active state
+  function loadRegion(link) {
     document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
     link.classList.add("active");
-
-    // Show iframe, hide placeholder
     placeholder.style.display = "none";
     frame.style.display = "block";
-    frame.src = link.getAttribute("href");
-
-    // On mobile, picking a date should reveal the dashboard, not the drawer
+    frame.src = link.getAttribute("data-href");
     if (window.innerWidth <= 768) closeSidebar();
-  });
-
-  // ── Auto-load most recent entry on page load ──────────────────────────
-  const first = document.querySelector(".nav-link");
-  if (first) {
-    first.classList.add("active");
-    placeholder.style.display = "none";
-    frame.style.display = "block";
-    frame.src = first.getAttribute("href");
   }
 
-  // ── Drag-to-resize sidebar ────────────────────────────────────────────
+  document.getElementById("nav").addEventListener("click", (e) => {
+    const link = e.target.closest(".nav-link");
+    if (link) { e.preventDefault(); loadRegion(link); }
+  });
+
+  // Auto-load Peru on arrival
+  const first = document.querySelector(".nav-link");
+  if (first) loadRegion(first);
+
+  // Drag-to-resize
   let dragging = false;
-  resizer.addEventListener("mousedown", (e) => {
+  resizer.addEventListener("mousedown", () => {
     dragging = true;
     resizer.classList.add("dragging");
     document.body.style.userSelect = "none";
@@ -398,8 +372,7 @@
   });
   document.addEventListener("mousemove", (e) => {
     if (!dragging) return;
-    const newWidth = Math.min(Math.max(e.clientX, 180), 500);
-    sidebar.style.width = newWidth + "px";
+    sidebar.style.width = Math.min(Math.max(e.clientX, 180), 500) + "px";
   });
   document.addEventListener("mouseup", () => {
     if (!dragging) return;
@@ -409,6 +382,5 @@
     document.body.style.cursor = "";
   });
 </script>
-
 </body>
 </html>
